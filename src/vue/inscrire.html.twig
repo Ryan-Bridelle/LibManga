@@ -1,0 +1,70 @@
+{% extends "base.html.twig" %}
+{% block title %} {{parent()}} Créer un compte {% endblock %}
+{% block contenu %}
+
+{% if form.valide is defined %}
+  {% if form.valide == true %}
+    <h1>Inscription réussie</h1>
+    <h1>Voici votre identifiant : {{form.email}}</h1>
+
+    {% if form.role == 1 %}
+      <h1>Vous êtes administrateur du site</h1>
+    {% else %}
+      <h1>Vous êtes un client du site </h1>
+    {% endif %}
+{% else %}
+  <h1>Echec de l'inscription</h1>
+  <h1>Erreur : {{form.message}}</h1>
+  <h1><a href="index.php?page=inscrire">Retourner sur la page d'inscription</a></h1>
+  {% endif %}
+
+  {% else %}
+
+
+      <!--------------------------------------------Création de compte-->
+
+
+    <div class="container">
+
+       <form method="post" action="index.php?page=inscrire" enctype="application/x-www-form-urlencoded"> 
+         <div class="form-group">
+           <label for="exampleInputEmail1">Adresse mail</label>
+           <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"name="email" placeholder="nom@example.com">
+           <small id="emailHelp" class="form-text text-muted"></small>
+        </div>
+
+        <select class="form-control" name="role">
+        <option value="1">Administrateur</option>
+        <option value="2">Client</option>
+        </select>
+
+
+         <div>
+          <label for="exampleInputPassword1">Nom</label>
+           <input type="name" class="form-control" id="nom" name="nom" placeholder="Dupond">
+         </div>
+
+
+          <div>
+
+            <label for="exampleInputPassword1">Prénom</label>
+            <input type="firstname" class="form-control" id="prénom" name="prenom" placeholder="Kévin">
+          </div>
+
+
+          <div class="form-group">
+          <label for="MDP">Mot de passe</label>
+          <input type="password" class="form-control" name="motdepasse">
+       </div>
+
+
+       <div class="form-group">
+          <label for="confirmerMDP">confirmation</label>
+          <input type="password" class="form-control" name="confirmation">
+       </div>
+
+          <button type="submit" class="btn btn-primary" name='valide'>Créer un compte</button>
+        </form>
+      </div>
+    {% endif %} 
+    {% endblock %}
