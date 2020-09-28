@@ -12,6 +12,7 @@ function getPage($db){
  $lesPages['utilisateur'] = "utilisateurControleur";
  $lesPages['ajoutManga'] = "ajoutMangaControleur";
  $lesPages['manga'] = "mangaControleur";
+ $lesPages['utilisateurModif'] = "utilisateurModifControleur";
 
 
  if($db!=null){

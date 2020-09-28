@@ -1,0 +1,68 @@
+ {% extends "base.html.twig" %}
+ {% block title %} {{ parent() }} Modifier un utilisateur {% endblock %}
+ {% block contenu %} 
+ <h1>Modifier un utilisateur</h1>
+
+ {% if form.utilisateur is defined %}
+ {% if form.utilisateur != null %}
+ 
+ <div class="container">
+
+       <form method="post" action="index.php?page=utilisateurModif" enctype="application/x-www-form-urlencoded"> 
+         <div class="form-group">
+           <label for="exampleInputEmail1">Adresse mail</label>
+           <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"name="email" placeholder="nom@example.com" value="{{form.utilisateur.email}}">
+           <small id="emailHelp" class="form-text text-muted"></small>
+        </div>
+
+        <select class="form-control" name="role" >
+        {% for r in form.roles %}        
+        {% if r.id==form.utilisateur.idRole %}          
+        <option value="{{ r.id }}" selected>{{ r.libellerole }}</option>         
+        {% else %}          
+        <option value="{{ r.id }}">{{ r.libellerole }}</option>            
+        {% endif %}   
+        {% endfor %}
+        </select>
+
+
+         <div>
+          <label for="exampleInputPassword1">Nom</label>
+           <input type="name" class="form-control" id="nom" name="nom" placeholder="Dupond" value="{{form.utilisateur.nom}}">
+         </div>
+
+
+          <div>
+
+            <label for="exampleInputPassword1">Prénom</label>
+            <input type="firstname" class="form-control" id="prénom" name="prenom" placeholder="Kévin" value="{{form.utilisateur.prenom}}">
+          </div>
+
+
+          <div class="form-group">
+          <label for="MDP">Mot de passe</label>
+          <input type="password" class="form-control" name="motdepasse">
+       </div>
+
+
+       <div class="form-group">
+          <label for="confirmerMDP">confirmation</label>
+          <input type="password" class="form-control" name="confirmation">
+       </div>
+
+          <button type="submit" class="btn btn-primary" name='valide'>Modifier</button>
+        </form>
+    </div>
+
+        {% else %}        
+        <h2 class="alert alert-danger" role="alert">{{ form.message }}</h2>        
+        <a href="index.php?page=utilisateur">Retourner sur la liste des utilisateurs</a>    
+        {% endif %}
+
+        {% else %}      
+        <h2 class="alert alert-danger" role="alert">{{ form.message }}</h2>     
+        <a href="index.php?page=utilisateur">Retourner sur la liste des utilisateurs</a>
+        {% endif %}
+      
+     
+    {% endblock %}

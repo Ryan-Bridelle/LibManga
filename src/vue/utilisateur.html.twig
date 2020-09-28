@@ -13,6 +13,7 @@
 					<th scope="col">Nom</th>
 					<th scope="col">Prenom</th>
 					<th scope="col">Rôle</th>
+					<th scope="col"></th>
 				</tr>
 			</thead>
 			<tbody>
@@ -23,6 +24,7 @@
 						<td>{{u.nom}}</td>
 						<td>{{u.prenom}}</td>
 						<td>{{u.libellerole}}</td>
+						<td><a href="index.php?page=utilisateurModif&email={{u.email}}">Modifier</a></td>
 					</tr>
 				{% endfor %}
 			</tbody>
