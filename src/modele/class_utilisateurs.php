@@ -3,13 +3,13 @@
 		private $db;
         private $insert;
         private $connect;
+        private $select;
 
 		public function __construct($db){
 			$this->db = $db;
             $this->insert = $db->prepare("insert into utilisateur(nom,prenom,email,idRole,mdp) values(:nom,:prenom,:email,:role,:mdp)");
-
-            
             $this->connect = $this->db->prepare("select email, idRole, mdp from utilisateur where email=:email");
+            $this->select = $db->prepare("select email, idRole, nom, prenom, r.libelle as libellerole from utilisateur u, role r where u.idRole = r.id order by nom");
 		}
         public function insert($nom,$prenom,$email,$role,$mdp){
             $r=true;
@@ -28,6 +28,15 @@
             }
             return $this->connect->fetch();
             } 
+
+        public function select(){
+
+            $this->select->execute();
+            if ($this->select->errorCode()!=0){
+            print_r($this->select->errorInfo());
+            }
+            return $this->select->fetchAll();
+        }
 	}
 		
 ?>

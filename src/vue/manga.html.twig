@@ -1,0 +1,31 @@
+{% extends "base.html.twig" %}
+{% block title %}
+	{{parent()}}
+	liste Manga
+{% endblock %}
+{% block contenu %}
+
+	<div class="table-responsive">
+		<table class="table">
+			<thead>
+				<tr>
+					<th scope="col">Nom du Manga</th>
+					<th scope="col">Genre</th>
+					<th scope="col">Resume</th>
+					
+				</tr>
+			</thead>
+			<tbody>
+				{% for m in liste2 %}
+
+					<tr>
+						<td>{{m.nomManga}}</td>
+						<td>{{m.genre}}</td>
+						<td>{{m.resume}}</td>
+						
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+{% endblock %}

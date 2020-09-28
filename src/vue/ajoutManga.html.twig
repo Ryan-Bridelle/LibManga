@@ -1,0 +1,53 @@
+{% extends "base.html.twig" %}
+{% block title %} {{parent()}} Ajouter Un Manga {% endblock %}
+{% block contenu %}
+
+{% if form.valide is defined %}
+  {% if form.valide == true %}
+    <h1>ajout reussie</h1>
+  
+{% else %}
+  <h1>Echec de l'ajout</h1>
+  <h1>Erreur : {{form.message}}</h1>
+  <h1><a href="index.php?page=ajoutManga">Retourner sur la page d'ajout</a></h1>
+  {% endif %}
+
+  {% else %}
+
+
+      <!--------------------------------------------Ajout de manga-->
+
+
+    <div class="container">
+
+       <form method="post" action="index.php?page=ajoutManga" enctype="application/x-www-form-urlencoded"> 
+         <div>
+          <label for="exampleInputManga">Nom du Manga</label>
+           <input type="text" class="form-control" id="nomManga" name="nomManga" placeholder="One Piece">
+         </div>
+
+        <div>
+
+            <label for="exampleInputManga">Genre</label>
+            <select class="form-control" name="genre">
+            <option value="Shonen">Shonen</option>
+            <option value="Seinen">Seinen</option>
+            <option value="Shojo">Shojo</option>
+
+        </select>
+          </div>
+         
+        
+
+
+          <div>
+
+            <label for="exampleInputManga">Resume global</label>
+            <input type="text" class="form-control" id="resume" name="resume" placeholder="décrivez l'histoire">
+          </div>
+
+          <button type="submit" class="btn btn-primary" name='btAjout'>ajouter le manga</button>
+        </form>
+      </div> 
+      {% endif %}
+    {% endblock %}
