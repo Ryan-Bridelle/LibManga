@@ -1,68 +1,79 @@
- {% extends "base.html.twig" %}
- {% block title %} {{ parent() }} Modifier un utilisateur {% endblock %}
- {% block contenu %} 
- <h1>Modifier un utilisateur</h1>
+{% extends "base.html.twig" %}
+{% block title %}
+	{{ parent() }}
+	Modifier un utilisateur
+{% endblock %}
+{% block contenu %}
+	<h1>Modifier un utilisateur</h1>
 
- {% if form.utilisateur is defined %}
- {% if form.utilisateur != null %}
- 
- <div class="container">
+	{% if form.utilisateur is defined %}
+		{% if form.utilisateur != null %}
 
-       <form method="post" action="index.php?page=utilisateurModif" enctype="application/x-www-form-urlencoded"> 
-         <div class="form-group">
-           <label for="exampleInputEmail1">Adresse mail</label>
-           <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"name="email" placeholder="nom@example.com" value="{{form.utilisateur.email}}">
-           <small id="emailHelp" class="form-text text-muted"></small>
-        </div>
+			<div class="container">
 
-        <select class="form-control" name="role" >
-        {% for r in form.roles %}        
-        {% if r.id==form.utilisateur.idRole %}          
-        <option value="{{ r.id }}" selected>{{ r.libellerole }}</option>         
-        {% else %}          
-        <option value="{{ r.id }}">{{ r.libellerole }}</option>            
-        {% endif %}   
-        {% endfor %}
-        </select>
+				<form method="post" action="index.php?page=utilisateurModif" enctype="application/x-www-form-urlencoded">
+					
 
-
-         <div>
-          <label for="exampleInputPassword1">Nom</label>
-           <input type="name" class="form-control" id="nom" name="nom" placeholder="Dupond" value="{{form.utilisateur.nom}}">
-         </div>
+					<select class="form-control" name="role">
+						{% for r in form.roles %}
+							{% if r.id==form.utilisateur.idRole %}
+								<option value="{{ r.id }}" selected>{{ r.libellerole }}</option>
+							{% else %}
+								<option value="{{ r.id }}">{{ r.libellerole }}</option>
+							{% endif %}
+						{% endfor %}
+					</select>
 
 
-          <div>
-
-            <label for="exampleInputPassword1">Prénom</label>
-            <input type="firstname" class="form-control" id="prénom" name="prenom" placeholder="Kévin" value="{{form.utilisateur.prenom}}">
-          </div>
-
-
-          <div class="form-group">
-          <label for="MDP">Mot de passe</label>
-          <input type="password" class="form-control" name="motdepasse">
-       </div>
+					<div>
+						<label for="exampleInputPassword1">Nom</label>
+						<input type="name" class="form-control" id="nom" name="nom" placeholder="Dupond" value="{{form.utilisateur.nom}}">
+					</div>
 
 
-       <div class="form-group">
-          <label for="confirmerMDP">confirmation</label>
-          <input type="password" class="form-control" name="confirmation">
-       </div>
+					<div>
 
-          <button type="submit" class="btn btn-primary" name='valide'>Modifier</button>
-        </form>
-    </div>
+						<label for="exampleInputPassword1">Prénom</label>
+						<input type="firstname" class="form-control" id="prénom" name="prenom" placeholder="Kévin" value="{{form.utilisateur.prenom}}">
+					</div>
 
-        {% else %}        
-        <h2 class="alert alert-danger" role="alert">{{ form.message }}</h2>        
-        <a href="index.php?page=utilisateur">Retourner sur la liste des utilisateurs</a>    
-        {% endif %}
 
-        {% else %}      
-        <h2 class="alert alert-danger" role="alert">{{ form.message }}</h2>     
-        <a href="index.php?page=utilisateur">Retourner sur la liste des utilisateurs</a>
-        {% endif %}
-      
-     
-    {% endblock %}
+					<div class="form-group">
+						<label for="MDP">Mot de passe</label>
+						<input type="password" class="form-control" name="motdepasse">
+					</div>
+
+
+					<div class="form-group">
+						<label for="confirmerMDP">confirmation</label>
+						<input type="password" class="form-control" name="confirmation">
+					</div>
+
+					<input type="hidden" name="email" value="{{ form.utilisateur.email}}"/>
+
+					<button type="submit" class="btn btn-primary" name='btModifier'>Modifier</button>
+				</form>
+			</div>
+
+		{% else %}
+			<h2 class="alert alert-danger" role="alert">{{ form.message }}</h2>
+			<a href="index.php?page=utilisateur">Retourner sur la liste des utilisateurs</a>
+		{% endif %}
+
+{% else %}
+	{% if form.btModifier == true %}
+		<h1 class="h3 mb-3 font-weight-normal">{{ form.message }}
+		</h1>
+		<h1 class="h3 mb-3 font-weight-normal">
+			<a href="index.php?page=utilisateur">Retourner
+				sur la liste des utilisateurs</a>
+		</h1>
+	{% else %}
+		<h1 class="alert alert-danger" role="alert">{{ form.message }}</h1>
+		<h1 class="h3 mb-3 font-weight-normal">
+			<a href="index.php?page=utilisateur">Retourner
+				sur la liste des utilisateurs</a>
+		</h1>
+	{% endif %}
+{% endif %}
+{% endblock %}

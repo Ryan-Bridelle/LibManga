@@ -5,13 +5,16 @@
         private $connect;
         private $select;
         private $selectByEmail;
+        private $update;
 
 		public function __construct($db){
 			$this->db = $db;
             $this->insert = $db->prepare("insert into utilisateur(nom,prenom,email,idRole,mdp) values(:nom,:prenom,:email,:role,:mdp)");
             $this->connect = $this->db->prepare("select email, idRole, mdp from utilisateur where email=:email");
             $this->select = $db->prepare("select email, idRole, nom, prenom, r.libelle as libellerole from utilisateur u, role r where u.idRole = r.id order by nom");
-            $this->selectByEmail  =  $db->prepare("select email,  nom,  prenom,  idRole  from  utilisateur  where email=:email");
+            $this->selectByEmail  =  $db->prepare("select  nom,  prenom, email,  idRole  from  utilisateur  where email=:email");
+            
+            $this->update  =  $db->prepare("UPDATE  utilisateur  set  nom=:nom, prenom=:prenom, idRole=:role");
 		}
         public function insert($nom,$prenom,$email,$role,$mdp){
             $r=true;
@@ -47,6 +50,17 @@
              }        
              return $this->selectByEmail->fetch(); 
          }
+
+         public function update($nom, $prenom, $idRole){
+            $r = true;
+            $this->update->execute(array(':nom'=>$nom,':prenom'=>$prenom,':role'=>$idRole));
+            if ($this->update->errorCode()!=0){
+            print_r($this->update->errorInfo());
+            $r=false;
+            }
+            return $r;
+            }
+           
 	}
 		
 ?>

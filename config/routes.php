@@ -1,6 +1,6 @@
 <?php
 function getPage($db){
-    var_dump($_GET);
+    
 
 
  $lesPages['accueil'] = "accueilControleur";

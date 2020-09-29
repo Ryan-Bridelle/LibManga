@@ -72,7 +72,7 @@ function connexionControleur($twig, $db){
 }
 
 Function maintenanceControleur($twig){
-    var_dump($_POST);
+    
     echo $twig->render('maintenance.html.twig',array());
 }
 
@@ -130,9 +130,37 @@ function mangaControleur($twig, $db){
                $form['roles']=$liste;  
             }    else{      
                 $form['message'] = 'Utilisateur incorrect';      
-            } } else{     
+            } 
+        } 
+        
+        else{  
+
+                if(isset($_POST['btModifier'])){
+                    $utilisateur = new Utilisateur($db);
+                    $nom = $_POST['nom'];
+                    $prenom = $_POST['prenom'];
+                    $idRole = $_POST['role'];
+                    
+                    $exec=$utilisateur->update($nom, $prenom, $idRole);
+                    if(!$exec){
+                    $form['valide'] = false;
+                    $form['message'] = 'Echec de la modification';
+                    }
+                    else{
+                        $form['valide'] = true;
+                         $form['message'] = 'Modification réussie';
+                        }
+                    }
+                    else{
+ 
                 $form['message'] = 'Utilisateur non précisé';   
-            } echo $twig->render('utilisateurModif.html.twig', array('form'=>$form));}
+            } 
+        }
+            echo $twig->render('utilisateurModif.html.twig', array('form'=>$form));
+        
+        
+    }
+
   
    
 
